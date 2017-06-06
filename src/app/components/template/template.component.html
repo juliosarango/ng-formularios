@@ -1,0 +1,94 @@
+<h4>Formularios <small>template</small></h4>
+<hr>
+<form (ngSubmit)="guardar(forma)" novalidate="" #forma="ngForm">
+
+  <div>
+
+    <div class="form-group row" [ngClass]="{ 'has-danger': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched }">
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Nombre"
+               name="nombre"
+               minlength="5"
+               [(ngModel)] = "usuario.nombre"
+               #nombre="ngModel"
+               required>
+        <div *ngIf="nombre.errors?.required" class="form-control-feedback">
+          Este campo es requerido
+        </div>
+        <div *ngIf="nombre.errors?.minlength" class="form-control-feedback">
+          Longitud mínima de {{ nombre.errors.minlength.requiredLength }} caracteres
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row" [ngClass]=" { 'has-danger': apellido.errors?.required && apellido.touched }">
+      <label class="col-2 col-form-label">Apellido</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Apellido"
+               name="apellido"
+               [(ngModel)]="usuario.apellido"
+               #apellido="ngModel"
+               required>
+         <div *ngIf="apellido.errors?.required" class="form-control-feedback">
+           Este campo es requerido
+         </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row" [ngClass]="{ 'has-danger': (email.errors?.required || email.errors?.pattern ) && email.touched }">
+    <label class="col-2 col-form-label">Correo</label>
+    <div class="col-md-8">
+
+      <input class="form-control"
+             type="email"
+             placeholder="Correo electrónico"
+             name="email"
+             [(ngModel)]="usuario.email"
+             #email="ngModel"
+             required
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+             >
+       <div *ngIf="email.errors?.required" class="form-control-feedback">
+         Este campo es requerido
+       </div>
+       <div *ngIf="email.errors?.pattern" class="form-control-feedback">
+         El formato del email no es correcto
+       </div>
+
+    </div>
+  </div>
+
+  <div class="form-group row" [ngClass]="{ 'has-danger': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched }">
+    <label class="col-2 col-form-label">País</label>
+    <div class="col-8">
+      <select class="form-control" name="pais" [(ngModel)]="usuario.pais">
+           <option value="">Seleccione un valor</option>
+           <option *ngFor="let pais of paises" [value]="pais.codigo"> {{ pais.nombre }}</option>
+
+      </select>
+
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button [disabled]="!forma.valid"
+       type="submit" class="btn btn-outline-primary">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>

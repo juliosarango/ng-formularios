@@ -14,11 +14,13 @@ export class TemplateComponent implements OnInit {
     nombre: null,
     apellido: null,
     email: null,
-    pais:""
+    pais:"",
+    sexo: null,
+    acepta: null
   }
 
-  paises:Object = [
-    { codigo: "Ec",
+  paises = [
+    { codigo: "EC",
       nombre: "Ecuador"
     },
     { codigo: "COL",
@@ -28,6 +30,8 @@ export class TemplateComponent implements OnInit {
       nombre: "Argentina"
     },
   ]
+
+  sexos:string[] = ["Hombre","Mujer","ND"];
 
   constructor() { }
 

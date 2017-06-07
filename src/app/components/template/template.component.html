@@ -70,25 +70,94 @@
   <div class="form-group row" [ngClass]="{ 'has-danger': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched }">
     <label class="col-2 col-form-label">País</label>
     <div class="col-8">
-      <select class="form-control" name="pais" [(ngModel)]="usuario.pais">
+      <select class="form-control" name="pais" [(ngModel)]="usuario.pais" required #pais="ngModel">
            <option value="">Seleccione un valor</option>
            <option *ngFor="let pais of paises" [value]="pais.codigo"> {{ pais.nombre }}</option>
-
       </select>
+      <div *ngIf="pais.errors?.required" class="form-control-feedback">
+        Este campo es requerido
+      </div>
 
     </div>
   </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Sexo</label>
+
+    <div class="col-8">
+      <label class="custom-control custom-radio" *ngFor="let sexo of sexos">
+        <input name="sexo"
+               type="radio"
+               class="custom-control-input"
+               [(ngModel)]="usuario.sexo"
+               [value]="sexo" required>
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description">{{ sexo }}</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Acepta</label>
+    <div class="col-8">
+      <label class="custom-control custom-checkbox">
+        <input
+              [(ngModel)]="usuario.acepta"
+              #acepta="ngModel"
+              type="checkbox"
+              name="acepta"
+              class="custom-control-input" required>
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description">Acepta las condiciones</span>
+      </label>
+
+    </div>
+  </div>
+
+
+    <!-- Forma estática de crear radio buttons
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Sexo</label>
+      <div class="col-8">
+        <label class="custom-control custom-radio">
+          <input name="sexo"
+                 type="radio"
+                 class="custom-control-input"
+                 [(ngModel)]="usuario.sexo"
+                 value="masculino">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Masculino</span>
+        </label>
+        <label class="custom-control custom-radio">
+          <input name="sexo"
+                 type="radio"
+                 class="custom-control-input"
+                 [(ngModel)]="usuario.sexo"
+                 value="femenino">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Femenino</span>
+        </label>
+      </div>
+    </div>
+    -->
+
 
 
 
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button [disabled]="!forma.valid"
-       type="submit" class="btn btn-outline-primary">
+      <!--[disabled]="!forma.valid"-->
+      <button
+            [disabled]="!forma.valid"
+            type="submit" class="btn btn-outline-primary">
         Guardar
       </button>
     </div>
   </div>
 
 </form>
+
+<pre>
+  {{ usuario | json }}
+</pre>

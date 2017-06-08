@@ -40,7 +40,7 @@
 
   </div>
 
-  <div class="form-group row">
+  <div class="form-group row" [ngClass]=" { 'has-danger': !forma.get('correo').valid && forma.get('correo').touched }">
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
@@ -48,6 +48,58 @@
              type="email"
              placeholder="Correo electrónico"
              formControlName="correo">
+       <div  *ngIf="forma.controls['correo'].errors?.pattern && forma.get('correo').touched "
+             class="form-control-feedback">
+         El formato de correo es incorrecto.
+       </div>
+    </div>
+  </div>
+ <!-- [ngClass]=" { 'has-danger': !forma.get('pasatiempos').controls.valid && forma.get('pasatiempos').controls.touched }" -->
+  <div class="form-group row" >
+    <label class="col-2 col-form-label">Pasatiempos</label>
+    <div class="col-md-8" formArrayName="pasatiempos">
+      <input *ngFor="let pasatiempo of forma.controls['pasatiempos'].controls; let i = index"
+          [formControlName]="i"
+          type="text"
+          class="form-control">
+
+    </div>
+    <button
+        (click)="agregarPasatiempo()"
+        type="button" name="button" class="btn btn-primary">Agregar</button>
+  </div>
+
+  <div class="form-group row" [ngClass]=" { 'has-danger': !forma.get('username').valid }">
+    <label class="col-2 col-form-label">Username</label>
+    <div class="col-md-8">
+      <input class="form-control"
+             type="text"
+             placeholder="username"
+             formControlName="username">
+     <div  *ngIf="forma.controls['username'].errors?.existe && forma.get('username').touched "
+           class="form-control-feedback">
+           El usuario {{username}} ya está registrado.
+     </div>
+    </div>
+  </div>
+
+  <div class="form-group row" [ngClass]=" { 'has-danger': !forma.get('password1').valid && forma.get('password1').touched }">
+    <label class="col-2 col-form-label">Password</label>
+    <div class="col-md-8">
+      <input class="form-control"
+             type="password"
+             placeholder="password"
+             formControlName="password1">
+    </div>
+  </div>
+
+  <div class="form-group row" [ngClass]=" { 'has-danger': !forma.get('password2').valid && forma.get('password2').touched }">
+    <label class="col-2 col-form-label">Confirmar Password</label>
+    <div class="col-md-8">
+      <input class="form-control"
+             type="password"
+             placeholder="Confirmar password"
+             formControlName="password2">
     </div>
   </div>
 
@@ -62,5 +114,7 @@
     </div>
   </div>
 {{ forma.valid }}
+<br>
+{{ forma.status }}
 
 </form>
